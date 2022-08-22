@@ -175,7 +175,7 @@ app.listen(port, () => {
 
 // mongoose.connect('mongodb+srv://mernDB:mern12345@cluster0.adbligz.mongodb.net/?retryWrites=true&w=majority');
 
-let databaseUrl = 'mongodb+srv://mernDB:mern12345@cluster0.adbligz.mongodb.net/mernDataBase?retryWrites=true&w=majority';
+let databaseUrl = '';
 mongoose.connect(databaseUrl);
 
 //mongodb connected disconnected events
