@@ -173,7 +173,7 @@ app.listen(port, () => {
 
 // mongooes connection
 
-// mongoose.connect('mongodb+srv://mernDB:mern12345@cluster0.adbligz.mongodb.net/?retryWrites=true&w=majority');
+
 
 let databaseUrl = '';
 mongoose.connect(databaseUrl);
