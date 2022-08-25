@@ -162,15 +162,18 @@ app.post("/login", (req, res) => {
 
                 }
                 else {
-                    stringToHash(body.password).then(hashString => {
                         res.status(401).send({
                             message: "incorrect password"
                         })
                         return;
 
-                    })
+                    
                 }
             }
+        }
+        else {
+            console.log("db error: ", err);
+            res.status(500).send({ message: "db error in query" });
         }
     })
 })
