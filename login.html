@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+
+
+    <!-- <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid;
+            height: 100vh;
+            background-color: #000000;
+        }
+
+        .wrapper {
+            border: 1px solid #9f6700;
+            border-radius: 25px;
+            width: 36%;
+            background: #000000d9;
+            box-shadow: -3px 4px 20px -6px rgb(255 152 0); -->
+            <!-- /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            backdrop-filter: blur(2.3px);
+        }
+
+        h1 {
+            font-size: 40px;
+            margin: 20px;
+            text-align: center;
+            color: #ca9340;
+        }
+
+        form {
+            padding: 20px;
+            margin: 20px;
+
+        }
+
+        label {
+            font-size: 16px;
+            color: #9f6700;
+        }
+
+        input {
+            border: 1px solid;
+            padding: 0.66rem;
+            width: 100%;
+            color: #ca9340;
+            border: none;
+            outline: none;
+            background: transparent;
+
+        }
+
+        .toggle {
+            align-items: center;
+            display: flex;
+            border: 1px solid #b36b00;
+            width: 100%;
+            height: 41px;
+            border-radius: 25px;
+        }
+
+        .toggle__input {
+            flex: 1;
+            padding: 0.5rem;
+        }
+
+        /* .toggle__button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        } */
+
+        #message {
+            margin: 10px 20px;
+            padding: 10px;
+            text-align: center;
+            color: #9f6700;
+        }
+
+        .exist-acc {
+            margin: 10px 20px;
+            padding: 15px;
+            text-align: center;
+            color: #ca9340;
+        }
+
+        .exist-acc a {
+            color: #9f6700;
+            text-decoration: none;
+
+        }
+
+        .btn {
+            background-image: linear-gradient(to right bottom, #bb7e00, #be7500, #c26b00, #c46100, #c75600);
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            height: 43px;
+            margin: 20px 0;
+            color: black;
+        }
+
+        i {
+            margin: 0 10px;
+            color: #b36b00;
+            cursor: default;
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                width: 55%;
+            }
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 479px) {
+            .wrapper {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 35px;
+                margin: 15px;
+            }
+
+            .exist-acc {
+                padding: 10px;
+            }
+        }
+    </style> -->
+
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="wrapper">
+            <h1>Login Form</h1>
+
+
+
+            <form onsubmit="login(); return false ">
+
+                <label for="email">Email</label>
+                <div class="toggle">
+                    <input type="email" id="email" autocomplete="off">
+                </div>
+
+                <br>
+
+                <label for="password">Password</label>
+                <div class="toggle">
+                    <input type="password" id="password">
+                    <!-- <i class="material-icons" id="visibility">visibility_off</i> -->
+                </div>
+
+
+                <input class="btn" type="submit" value="Login">
+            </form>
+
+
+            <div id="message"></div>
+
+
+            <div class="exist-acc">
+                Creat a new account? <a href="./index.html" id="signup">Sign Up</a>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        // let password = document.getElementById('password');
+        // let visibility = document.getElementById('visibility');
+
+        // let is_show = true;
+        // visibility.addEventListener('click', function () {
+        //     if (is_show) {
+        //         password.setAttribute('type', 'text');
+        //         visibility.innerHTML = 'visibility';
+        //     } else {
+        //         password.setAttribute('type', 'password');
+        //         visibility.innerHTML = 'visibility_off';
+        //     }
+        //     is_show = !is_show;
+        // });
+
+
+        function login() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            if (email == " " || password == "") {
+                document.querySelector("#message").innerHTML = 'Please, fill all input first.';
+                return;
+            }
+
+            axios.post('https://form-signup-login.herokuapp.com/login', {
+                email,
+                password,
+
+            })
+
+                .then(function (response) {
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                });
+
+
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

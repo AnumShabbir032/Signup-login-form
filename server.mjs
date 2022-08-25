@@ -126,44 +126,56 @@ app.get("/users", async (req, res) => {
 
 
 //Login Database
-
-// app.post("/login", (req, res) => {
-
-//     userModel.findOne({ email: body.email, password: body.password }, (err, data) => {
+app.post("/login", (req, res) => {
 
 
-//         let body = req.body;
 
-//         if (!body.email || !body.password) {
-//             res.status(400).send(
-//                 `Required fields missing, Request example:
-//     {
-//         "email": "abc@abc.com",
-//         "password": "12345"
-//     }`
-//             );
-//             return;
-//         }
-//         if (userModel.email === body.email) {
-//             if (userModel.password === body.password) {
-//                 res.status(200).send({
-//                     firstName: userModel.firstName,
-//                     lastName: userModel.lastName,
-//                     email: userModel.email,
-//                     message: "login successful"
-//                 })
-//                 return;
 
-//             } else {
+    let body = req.body;
 
-//                 res.status(401).send({
-//                     message: "incorrect password"
-//                 })
-//                 return;
-//             }
-//         }
-//     });
-// });
+    if (!body.email || !body.password) {
+        res.status(400).send(
+            `Required fields missing, Request example:
+    {
+        "email": "abc@abc.com",
+        "password": "12345"
+    }`
+        );
+        return;
+    }
+
+
+
+    userModel.findOne({ email: body.email, password: body.password }, (err, data) => {
+        if (!err) {
+            console.log("data: ", data);
+
+            if (userModel.email === body.email) {
+                if (userModel.password === body.password) {
+                    res.status(200).send({
+                        firstName: userModel.firstName,
+                        lastName: userModel.lastName,
+                        email: userModel.email,
+                        message: "login successful"
+                    })
+                    return;
+
+                }
+                else {
+                    stringToHash(body.password).then(hashString => {
+                        res.status(401).send({
+                            message: "incorrect password"
+                        })
+                        return;
+
+                    })
+                }
+            }
+        }
+    })
+})
+
+
 
 
 app.listen(port, () => {
